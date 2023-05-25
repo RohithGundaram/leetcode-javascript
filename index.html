@@ -8,7 +8,7 @@
     <script>
         const apiUrl = "https://api.openai.com/v1/chat/completions"
         //add the apiKey from openAI account before running
-        const apiKey = "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"
+        const apiKey = ""
 
         async function postData(){
             const message = document.getElementById('message').value
@@ -17,8 +17,7 @@
             fetch(apiUrl, {
                 method:"POST",
                 // mode: "no-cors",
-                headers:{
-                    // "Access-Control-Allow-Origin" : "https://rohithgundaram-special-space-disco-xq97jwpgpr43pxx9-5500.preview.app.github.dev/index.html",
+                headers:
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${apiKey}`,
                 },
