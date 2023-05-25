@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>leetcode-chatGPT</title>
     <script>
-        const apiUrl = "https://api.openai.com/v1/chat/completitions"
+        const apiUrl = "https://api.openai.com/v1/chat/completions"
         //add the apiKey from openAI account before running
-        const apiKey = "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"
+        const apiKey = "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"
 
         async function postData(){
             const message = document.getElementById('message').value
@@ -16,15 +16,15 @@
 
             fetch(apiUrl, {
                 method:"POST",
+                // mode: "no-cors",
                 headers:{
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`,
-                "Access-Control-Allow-Origin" : "http://127.0.0.1:5500",
-                "Access-Control-Allow-Methods" : "POST"
+                    // "Access-Control-Allow-Origin" : "https://rohithgundaram-special-space-disco-xq97jwpgpr43pxx9-5500.preview.app.github.dev/index.html",
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`,
                 },
                 body: JSON.stringify(
                     {
-                        "model": "gpt-3.5.turbo",
+                        "model": "gpt-3.5-turbo",
                         "messages": [
                             {
                                 "role": "user",
@@ -36,8 +36,13 @@
             })
             .then(response => response.json())
             .then(data =>{
-                console.log("Cooking");
+                console.log("Cooking the code");
                 console.log(data);
+                console.log("Done");
+                const responseText = data.choices[0].message.content.trim()
+                const card = document.createElement('pre')
+                card.innerHTML = responseText
+                document.getElementById('chat-area').appendChild(card)
             })
         }
     </script>
@@ -61,6 +66,11 @@
             width: 80%;
             display: block;
         }
+        #chat-area{
+            background-color: #5f5f5f;
+            padding: 10px;
+            width: 100vw;
+        }
     </style>
 </head>
 <body class="dark">
@@ -69,7 +79,7 @@
         <label for="message">Enter your code statement: </label>
         <textarea name="" class="input" id="message" cols="30" rows="10"></textarea>
         <button type="button" onclick="postData()">Send me</button>
-        <div id="chat-area">test</div>
+        <div id="chat-area"></div>
     </form>
 </body>
 </html>
